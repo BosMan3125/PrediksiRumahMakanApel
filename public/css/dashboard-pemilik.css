@@ -1,0 +1,427 @@
+/* ===== RESET DASAR ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    display: flex;
+    min-height: 100vh;
+    background-color: #f5f5f5;
+}
+
+/* ===== SIDEBAR ===== */
+.sidebar {
+    width: 260px;
+    background-color: #ffffff;
+    border-right: 1px solid #e0e0e0;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    height: 100vh;
+    left: 0;
+    top: 0;
+    z-index: 100;
+}
+
+.sidebar-header {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.sidebar-logo {
+    width: 40px;
+    height: auto;
+    margin-right: 10px;
+}
+
+.sidebar-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1a1a1a;
+}
+
+.sidebar-menu {
+    padding: 20px 10px;
+    flex: 1;
+    overflow-y: auto;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    text-decoration: none;
+    color: #333;
+    font-size: 15px;
+    border-radius: 8px;
+    margin-bottom: 5px;
+    transition: all 0.3s;
+    background: none;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+}
+
+.menu-item:hover {
+    background-color: #f0f0f0;
+}
+
+.menu-item.active {
+    background-color: #e0e0e0;
+    font-weight: 600;
+}
+
+.menu-icon {
+    font-size: 20px;
+    margin-right: 15px;
+    width: 24px;
+    text-align: center;
+}
+
+.btn-logout {
+    background-color: #e31e24;
+    color: white;
+    margin-top: 20px;
+}
+
+.btn-logout:hover {
+    background-color: #c0392b;
+}
+
+.btn-logout .menu-icon {
+    filter: brightness(0) invert(1);
+}
+
+/* ===== MAIN CONTENT ===== */
+.main-content {
+    margin-left: 260px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+}
+
+/* ===== HEADER DENGAN BANNER ===== */
+.top-header {
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)),
+                url('../images/banner.png') center/cover no-repeat;
+    background-color: #333;
+    color: white;
+    padding: 40px;
+    border-radius: 12px;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.header-left h1 {
+    font-size: 40px;
+    color: white;
+    margin-bottom: 5px;
+    font-weight: 700;
+}
+
+.header-left p {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.user-icon {
+    font-size: 32px;
+    filter: brightness(0) invert(1); /* Ikon putih */
+}
+
+.user-name {
+    font-size: 16px;
+    font-weight: 600;
+    color: white;
+}
+
+/* ===== SUMMARY CARDS ===== */
+.summary-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.card {
+    background-color: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.card-header h3 {
+    font-size: 14px;
+    color: #666;
+    font-weight: 600;
+}
+
+.card-icon {
+    font-size: 24px;
+    color: #e31e24;
+}
+
+.card-body {
+    min-height: 150px;
+}
+
+/* Card - Total Penjualan */
+.card-sales .sales-amount {
+    font-size: 28px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 10px;
+}
+
+.card-sales .sales-comparison {
+    font-size: 13px;
+    color: #666;
+}
+
+.card-sales .change-indicator {
+    color: #27ae60;
+    font-weight: 600;
+}
+
+/* Tables in Cards */
+.ingredients-table,
+.top-menu-table {
+    width: 100%;
+    font-size: 13px;
+}
+
+.ingredients-table th,
+.top-menu-table th {
+    text-align: left;
+    padding: 8px;
+    border-bottom: 2px solid #e0e0e0;
+    color: #666;
+    font-weight: 600;
+}
+
+.ingredients-table td,
+.top-menu-table td {
+    padding: 8px;
+    border-bottom: 1px solid #f0f0f0;
+    color: #333;
+}
+
+/* ===== STATISTICS SECTION ===== */
+.statistics-section {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.chart-card {
+    background-color: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.chart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.chart-header h3 {
+    font-size: 16px;
+    color: #1a1a1a;
+    font-weight: 600;
+}
+
+.filter-select {
+    padding: 8px 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    font-size: 13px;
+    outline: none;
+    cursor: pointer;
+}
+
+.chart-body {
+    height: 250px;
+    position: relative;
+}
+
+/* ===== PRE-ORDER SECTION ===== */
+.preorder-section {
+    background-color: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.section-header h3 {
+    font-size: 18px;
+    color: #1a1a1a;
+    font-weight: 600;
+}
+
+.section-icon {
+    font-size: 24px;
+}
+
+.table-container {
+    overflow-x: auto;
+}
+
+.preorder-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.preorder-table th {
+    text-align: left;
+    padding: 12px;
+    border-bottom: 2px solid #e0e0e0;
+    color: #666;
+    font-weight: 600;
+}
+
+.preorder-table td {
+    padding: 12px;
+    border-bottom: 1px solid #f0f0f0;
+    color: #333;
+}
+
+.preorder-table tbody tr:hover {
+    background-color: #f9f9f9;
+}
+
+/* Status Badges */
+.status-badge {
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    display: inline-block;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.status-badge.pending {
+    background-color: #fff8e1;
+    color: #b78103;
+    border: 1px solid #ffe082;
+}
+
+.status-badge.diterima {
+    background-color: #e3f2fd;
+    color: #0d47a1;
+    border: 1px solid #90caf9;
+}
+
+.status-badge.ditolak {
+    background-color: #ffebee;
+    color: #c62828;
+    border: 1px solid #ef9a9a;
+}
+
+.status-badge.menunggu_dp,
+.status-badge.menunggu-dp {
+    background-color: #f3e5f5;
+    color: #6a1b9a;
+    border: 1px solid #ce93d8;
+}
+
+.status-badge.diproduksi {
+    background-color: #ffe0b2;
+    color: #e65100;
+    border: 1px solid #ffcc80;
+}
+
+.status-badge.menunggu_pelunasan,
+.status-badge.menunggu-pelunasan {
+    background-color: #e0f7fa;
+    color: #006064;
+    border: 1px solid #80deea;
+}
+
+.status-badge.lunas {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+    border: 1px solid #a5d6a7;
+}
+
+.status-badge.selesai {
+    background-color: #d1e7dd;
+    color: #0f5132;
+    border: 1px solid #a3cfbb;
+}
+
+.status-badge.hangus,
+.status-badge.batal,
+.status-badge.dibatalkan {
+    background-color: #eceff1;
+    color: #37474f;
+    border: 1px solid #b0bec5;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1200px) {
+    .summary-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .statistics-section {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.3s;
+    }
+
+    .main-content {
+        margin-left: 0;
+    }
+
+    .header-left h1 {
+        font-size: 24px;
+    }
+
+    .top-header {
+        padding: 20px;
+    }
+}

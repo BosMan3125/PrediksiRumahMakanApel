@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beli Paket - Rumah Makan Apel</title>
+    <link rel="stylesheet" href="css/beli-paket.css">
+</head>
+
+<body>
+    <!-- SIDEBAR KIRI -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <img src="images/logo.png" alt="Logo" class="sidebar-logo">
+            <span class="sidebar-title">Rumah Makan Apel</span>
+        </div>
+
+        <nav class="sidebar-menu">
+            <a href="dashboard-pelanggan.html" class="menu-item">
+                <span class="menu-icon">🏠</span>
+                <span>Dashboard</span>
+            </a>
+            <a href="beli-paket.html" class="menu-item active">
+                <span class="menu-icon">🛒</span>
+                <span>Beli Paket</span>
+            </a>
+            <a href="riwayat-pesan.html" class="menu-item">
+                <span class="menu-icon">🕐</span>
+                <span>Riwayat Pesan</span>
+            </a>
+            <button id="btn-logout" class="menu-item btn-logout" style="display:none;">
+                <span class="menu-icon">🚪</span>
+                <span>Logout</span>
+            </button>
+        </nav>
+    </div>
+
+    <!-- KONTEN UTAMA -->
+    <div class="main-content">
+        <!-- HEADER ATAS -->
+        <header class="top-header">
+            <div class="header-right">
+                <a href="login.html" id="btn-login-header" class="btn-login-header" style="display:none;">Login</a>
+                <span class="user-icon">👤</span>
+                <span class="user-name" id="display-username">User</span>
+            </div>
+        </header>
+
+        <!-- BANNER -->
+        <div class="page-banner">
+            <h1>Beli Paket</h1>
+            <p>Pilih paket makanan favorit Anda</p>
+        </div>
+
+        <!-- SEARCH BAR -->
+        <div class="search-container">
+            <input type="text" id="search-input" class="search-input" placeholder="Cari...">
+        </div>
+
+        <!-- DAFTAR PAKET -->
+        <div class="paket-grid" id="paket-grid">
+            <!-- Paket akan dimuat dari database via JavaScript -->
+        </div>
+    </div>
+
+    <!-- POPUP PESAN PAKET -->
+    <div id="popup-pesan" class="popup-overlay" style="display: none;">
+        <div class="popup-box popup-pesan-box">
+            <button class="popup-close" id="close-popup-pesan">✕</button>
+            <h2 id="popup-paket-nama">Pesan Paket</h2>
+
+            <img id="popup-paket-gambar" src="" alt="Paket" class="popup-paket-image">
+
+            <p class="popup-paket-harga" id="popup-paket-harga">Rp 0 / Porsi</p>
+
+            <div class="popup-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Jumlah Porsi:</label>
+                        <div class="counter-wrapper">
+                            <button type="button" class="btn-counter" id="btn-minus">-</button>
+                            <input type="number" id="jumlah-porsi" value="1" min="1" max="150">
+                            <button type="button" class="btn-counter" id="btn-plus">+</button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Tanggal Ambil:</label>
+                        <input type="date" id="tanggal-ambil">
+                    </div>
+                    <div class="form-group">
+                        <label>Jam Ambil:</label>
+                        <select id="jam-ambil">
+                            <option value="">-- Pilih Jam (08.00 - 21.30 WIB) --</option>
+                            <option value="08:00">08:00 WIB</option>
+                            <option value="08:30">08:30 WIB</option>
+                            <option value="09:00">09:00 WIB</option>
+                            <option value="09:30">09:30 WIB</option>
+                            <option value="10:00">10:00 WIB</option>
+                            <option value="10:30">10:30 WIB</option>
+                            <option value="11:00">11:00 WIB</option>
+                            <option value="11:30">11:30 WIB</option>
+                            <option value="12:00">12:00 WIB</option>
+                            <option value="12:30">12:30 WIB</option>
+                            <option value="13:00">13:00 WIB</option>
+                            <option value="13:30">13:30 WIB</option>
+                            <option value="14:00">14:00 WIB</option>
+                            <option value="14:30">14:30 WIB</option>
+                            <option value="15:00">15:00 WIB</option>
+                            <option value="15:30">15:30 WIB</option>
+                            <option value="16:00">16:00 WIB</option>
+                            <option value="16:30">16:30 WIB</option>
+                            <option value="17:00">17:00 WIB</option>
+                            <option value="17:30">17:30 WIB</option>
+                            <option value="18:00">18:00 WIB</option>
+                            <option value="18:30">18:30 WIB</option>
+                            <option value="19:00">19:00 WIB</option>
+                            <option value="19:30">19:30 WIB</option>
+                            <option value="20:00">20:00 WIB</option>
+                            <option value="20:30">20:30 WIB</option>
+                            <option value="21:00">21:00 WIB</option>
+                            <option value="21:30">21:30 WIB</option>
+                        </select>
+                    </div>
+                </div>
+                <p class="info-note">*untuk batas waktu ambil pesanan segera mengambil pesanan minimal hari itu juga,
+                    harap membayar DP 50% awal jika pemilik menerima pesanan anda</p>
+            </div>
+
+            <div class="total-harga-wrapper">
+                <span>Total Harga :</span>
+                <span class="total-harga" id="total-harga">Rp 0</span>
+            </div>
+
+            <button class="btn-pesan-sekarang" id="btn-pesan-sekarang">Pesan Sekarang</button>
+        </div>
+    </div>
+
+    <!-- POPUP SUKSES -->
+    <div id="popup-sukses" class="popup-overlay" style="display: none;">
+        <div class="popup-box popup-sukses-box">
+            <button class="popup-close" id="close-popup-sukses">✕</button>
+            <div class="popup-icon">
+                <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2">
+                    <path d="M9 11l3 3L22 4"></path>
+                    <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"></path>
+                </svg>
+            </div>
+            <h2>Pesanan sudah terkirim</h2>
+            <p>Tunggu Persetujuan dari Pemilik</p>
+            <a href="riwayat-pesan.html" class="btn-kembali-riwayat">Lihat Riwayat Pesanan</a>
+        </div>
+    </div>
+
+    <!-- POPUP BATAS PEMESANAN (MAKSIMAL 150 PORSI) -->
+    <div id="popup-batas-pesan" class="popup-overlay" style="display: none;">
+        <div class="popup-box popup-peringatan-box">
+            <button class="popup-close" id="close-popup-batas">✕</button>
+            <div class="popup-icon popup-icon-warning">
+                <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#e31e24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="8" x2="12" y2="12"></line>
+                    <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                </svg>
+            </div>
+            <h2>Perhatian</h2>
+            <p class="popup-pesan-teks">Pemesanan anda melewati batas pemesanan</p>
+            <p class="popup-subteks-batas">Maksimal pemesanan per pesanan adalah 150 porsi.</p>
+            <button type="button" id="btn-kembali-batas" class="btn-kembali-popup">Kembali</button>
+        </div>
+    </div>
+
+    <script src="js/beli-paket.js"></script>
+</body>
+
+</html>

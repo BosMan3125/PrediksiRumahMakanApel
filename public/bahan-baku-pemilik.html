@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bahan Baku - Rumah Makan Apel</title>
+    <link rel="stylesheet" href="css/bahan-baku-pemilik.css">
+</head>
+
+<body>
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <img src="images/logo.png" alt="Logo" class="sidebar-logo">
+            <span class="sidebar-title">Rumah Makan Apel</span>
+        </div>
+
+        <nav class="sidebar-menu">
+            <a href="dashboard-pemilik.html" class="menu-item">
+                <span class="menu-icon">🏠</span>
+                <span>Dashboard</span>
+            </a>
+            <a href="bahan-baku-pemilik.html" class="menu-item active">
+                <span class="menu-icon">📦</span>
+                <span>Bahan Baku</span>
+            </a>
+            <a href="resep-pemilik.html" class="menu-item">
+                <span class="menu-icon">📝</span>
+                <span>Resep</span>
+            </a>
+            <a href="penjualan-pemilik.html" class="menu-item">
+                <span class="menu-icon">💰</span>
+                <span>Penjualan</span>
+            </a>
+            <a href="pre-order-pemilik.html" class="menu-item">
+                <span class="menu-icon">🧾</span>
+                <span>Pre-Order</span>
+            </a>
+            <a href="prediksi-pemilik.html" class="menu-item">
+                <span class="menu-icon">📊</span>
+                <span>Prediksi</span>
+            </a>
+            <a href="belanja-bahan-pemilik.html" class="menu-item">
+                <span class="menu-icon">🛍️</span>
+                <span>Belanja Bahan</span>
+            </a>
+
+            <button id="btn-logout" class="menu-item btn-logout">
+                <span class="menu-icon"></span>
+                <span>Logout</span>
+            </button>
+        </nav>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
+        <!-- HEADER -->
+        <header class="top-header">
+            <div class="header-left">
+                <h1>Bahan Baku</h1>
+                <p>Berisikan Data Bahan Baku Makanan yang tersedia, pemilik dapat menginput bahan baku makanan.</p>
+            </div>
+            <div class="header-right">
+                <span class="user-icon">👤</span>
+                <span class="user-name" id="display-username">Pemilik</span>
+            </div>
+        </header>
+
+        <!-- SEARCH, FILTER & ADD BUTTON -->
+        <div class="action-bar">
+            <div class="search-container" style="display: flex; gap: 10px;">
+                <input type="text" id="search-bahan" class="search-input" placeholder="Cari Bahan Baku...">
+                <select id="filter-kategori" class="search-input">
+                    <option value="">Semua Kategori</option>
+                    <option value="cepat_busuk">Cepat Busuk</option>
+                    <option value="awet">Awet</option>
+                </select>
+                <select id="filter-jenis-bahan" class="search-input">
+                    <option value="">Semua Jenis Bahan</option>
+                    <option value="Meat dan Seafood">Meat dan Seafood</option>
+                    <option value="Sayuran">Sayuran</option>
+                    <option value="Minyak dan Cairan">Minyak dan Cairan</option>
+                    <option value="Bumbu-Bumbuan">Bumbu-Bumbuan</option>
+                    <option value="Tepung">Tepung</option>
+                    <option value="Biji-bijian">Biji-bijian</option>
+                </select>
+            </div>
+            <button class="btn-tambah" onclick="bukaPopupTambah()">+ Tambah Bahan Baku</button>
+        </div>
+
+        <!-- CARDS -->
+        <div class="card-container" id="bahan-card-container">
+            <div style="text-align: center; color: #999; grid-column: 1 / -1;">Memuat data...</div>
+        </div>
+    </div>
+
+    <!-- Popup Tambah/Edit Bahan Baku -->
+    <div id="popup-bahan" class="popup-overlay" style="display: none;">
+        <div class="popup-box popup-form-box">
+            <button class="popup-close" onclick="tutupPopup()">✕</button>
+            <h2 id="popup-title">Tambah Bahan Baku</h2>
+
+            <form id="form-bahan">
+                <div class="form-group" style="text-align: center;">
+                    <div id="preview-container"
+                        style="width: 150px; height: 150px; margin: 0 auto 10px auto; background-color: #f0f0f0; border-radius: 8px; border: 1px dashed #ccc; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+                        <span id="preview-text" style="color: #999; font-size: 12px;">Pilih Gambar</span>
+                        <img id="preview-image" src="" alt="Preview"
+                            style="display: none; width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <label for="gambar-bahan" class="btn-kembali" style="cursor: pointer; display: inline-block;">Upload
+                        Gambar</label>
+                    <input type="file" id="gambar-bahan" accept="image/*" style="display: none;">
+                </div>
+
+                <div class="form-group">
+                    <label for="nama-bahan">Nama Bahan Baku</label>
+                    <input type="text" id="nama-bahan" required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="stok-tersedia">Jumlah Stok</label>
+                        <input type="number" id="stok-tersedia" step="0.01" min="0" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="stok-minimal">Stok Minimal</label>
+                        <input type="number" id="stok-minimal" step="0.01" min="0" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="satuan">Satuan</label>
+                        <select id="satuan" required>
+                            <option value="">Pilih Satuan</option>
+                            <option value="kg">kg</option>
+                            <option value="liter">liter</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="kategori">Kategori</label>
+                        <select id="kategori" required>
+                            <option value="">Pilih Kategori</option>
+                            <option value="cepat_busuk">Cepat Busuk</option>
+                            <option value="awet">Awet</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="jenis-bahan">Jenis Bahan</label>
+                        <select id="jenis-bahan" required>
+                            <option value="">Pilih Jenis Bahan</option>
+                            <option value="Meat dan Seafood">Meat dan Seafood</option>
+                            <option value="Sayuran">Sayuran</option>
+                            <option value="Minyak dan Cairan">Minyak dan Cairan</option>
+                            <option value="Bumbu-Bumbuan">Bumbu-Bumbuan</option>
+                            <option value="Tepung">Tepung</option>
+                            <option value="Biji-bijian">Biji-bijian</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="harga-satuan">Harga per-kg/per-liter</label>
+                        <input type="number" id="harga-satuan" min="0" placeholder="Opsional">
+                    </div>
+                </div>
+
+                <div style="text-align: right; margin-top: -10px; margin-bottom: 15px;">
+                    <button type="button" id="btn-toggle-kalkulator"
+                        style="background: none; border: none; color: #007bff; text-decoration: underline; cursor: pointer; font-size: 12px; padding: 0;">Beli
+                        setengah kg?, tentukan harganya disini</button>
+                </div>
+
+                <div id="kalkulator-mini"
+                    style="display: none; background: #f9f9f9; padding: 15px; border-radius: 8px; border: 1px solid #ddd; margin-bottom: 15px;">
+                    <p style="margin-top: 0; margin-bottom: 10px; font-size: 13px; font-weight: bold; color: #555;">
+                        Tentukan harga setengah kg</p>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="kalk-jumlah">Jumlah Beli di Nota (kg/liter)</label>
+                            <input type="number" id="kalk-jumlah" step="0.01" min="0" placeholder="Cth: 0.5">
+                        </div>
+                        <div class="form-group">
+                            <label for="kalk-total">Total Harga di Nota (Rp)</label>
+                            <input type="number" id="kalk-total" min="0" placeholder="Cth: 60000">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-buttons">
+                    <button type="button" class="btn-kembali" onclick="tutupPopup()">Kembali</button>
+                    <button type="submit" class="btn-simpan">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/bahan-baku-pemilik.js"></script>
+</body>
+
+</html>

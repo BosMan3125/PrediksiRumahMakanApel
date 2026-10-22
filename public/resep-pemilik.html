@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resep - Rumah Makan Apel</title>
+    <link rel="stylesheet" href="css/resep-pemilik.css">
+</head>
+<body>
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <img src="images/logo.png" alt="Logo" class="sidebar-logo">
+            <span class="sidebar-title">Rumah Makan Apel</span>
+        </div>
+        
+        <nav class="sidebar-menu">
+            <a href="dashboard-pemilik.html" class="menu-item">
+                <span class="menu-icon">🏠</span>
+                <span>Dashboard</span>
+            </a>
+            <a href="bahan-baku-pemilik.html" class="menu-item">
+                <span class="menu-icon">📦</span>
+                <span>Bahan Baku</span>
+            </a>
+            <a href="resep-pemilik.html" class="menu-item active">
+                <span class="menu-icon">📝</span>
+                <span>Resep</span>
+            </a>
+            <a href="penjualan-pemilik.html" class="menu-item">
+                <span class="menu-icon">💰</span>
+                <span>Penjualan</span>
+            </a>
+            <a href="pre-order-pemilik.html" class="menu-item">
+                <span class="menu-icon">🧾</span>
+                <span>Pre-Order</span>
+            </a>
+            <a href="prediksi-pemilik.html" class="menu-item">
+                <span class="menu-icon">📊</span>
+                <span>Prediksi</span>
+            </a>
+            <a href="belanja-bahan-pemilik.html" class="menu-item">
+                <span class="menu-icon">🛍️</span>
+                <span>Belanja Bahan</span>
+            </a>
+            
+            <button id="btn-logout" class="menu-item btn-logout">
+                <span class="menu-icon">🚪</span>
+                <span>Logout</span>
+            </button>
+        </nav>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
+        <!-- HEADER -->
+        <header class="top-header">
+            <div class="header-left">
+                <h1>Resep</h1>
+                <p>Berisikan data resep untuk penjualan, pemilik dapat menginput resep, porsi, harga, dan bahan yang digunakan.</p>
+            </div>
+            <div class="header-right">
+                <span class="user-icon">👤</span>
+                <span class="user-name" id="display-username">Pemilik</span>
+            </div>
+        </header>
+
+        <!-- SEARCH & ADD BUTTON -->
+        <div class="action-bar">
+            <div class="search-container">
+                <input type="text" id="search-resep" class="search-input" placeholder="Cari Resep...">
+            </div>
+            <button class="btn-tambah" onclick="bukaPopupTambah()">+ Tambah Resep</button>
+        </div>
+
+        <!-- GRID CARD RESEP -->
+        <div class="resep-grid" id="resep-grid">
+            <!-- Card akan diisi oleh JavaScript -->
+        </div>
+    </div>
+
+    <!-- POPUP DETAIL RESEP -->
+    <div id="popup-detail" class="popup-overlay" style="display: none;">
+        <div class="popup-box popup-detail-box">
+            <button class="popup-close" onclick="tutupPopupDetail()">X</button>
+            <h2 id="detail-nama-menu">Nama Menu</h2>
+            <p class="detail-harga" id="detail-harga">Harga per Porsi : Rp 0</p>
+            
+            <table class="detail-table">
+                <thead>
+                    <tr>
+                        <th>Nama Bahan</th>
+                        <th>Jumlah</th>
+                        <th>Satuan</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody-detail-bahan">
+                    <tr><td colspan="3" style="text-align: center; color: #999;">Memuat data...</td></tr>
+                </tbody>
+            </table>
+
+            <div class="popup-buttons">
+                <button class="btn-edit" onclick="bukaPopupEdit()">Edit</button>
+                <button class="btn-hapus" onclick="hapusResep()">Hapus</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- POPUP TAMBAH/EDIT RESEP -->
+    <div id="popup-form" class="popup-overlay" style="display: none;">
+        <div class="popup-box popup-form-box">
+            <button class="popup-close" onclick="tutupPopupForm()">✕</button>
+            <h2 id="popup-form-title">Tambah Resep</h2>
+            
+            <form id="form-resep">
+                <div class="form-group">
+                    <label for="nama-menu">Nama Menu</label>
+                    <input type="text" id="nama-menu" name="nama_menu" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="harga-porsi">Harga per Porsi</label>
+                    <input type="number" id="harga-porsi" name="harga" step="0.01" required>
+                </div>
+
+                <!-- Upload Gambar -->
+                <div class="form-group">
+                    <label>Pilih Gambar Resep</label>
+                    <input type="file" id="gambar-resep" name="gambar" accept="image/*" style="display: none;">
+                    <div class="file-input-wrapper">
+                        <button type="button" class="btn-choose-file" onclick="document.getElementById('gambar-resep').click()">📁 Pilih Gambar</button>
+                        <span id="file-name" class="file-name">Belum ada file dipilih</span>
+                    </div>
+                    <div id="image-preview" class="image-preview" style="display: none;">
+                        <img id="preview-img" src="" alt="Preview">
+                        <button type="button" class="btn-remove-image" onclick="removeImage()">✕</button>
+                    </div>
+                </div>
+
+                <!-- Masukan Bahan -->
+                <div class="bahan-section">
+                    <h3>Masukan Bahan</h3>
+                    <div class="bahan-input-row">
+                        <div class="form-group">
+                            <label for="pilih-bahan">Bahan</label>
+                            <div class="custom-select-wrapper" id="custom-select-bahan-wrapper">
+                                <div class="custom-select-trigger" id="custom-select-bahan-trigger">
+                                    <span id="custom-select-bahan-text">Pilih Bahan</span>
+                                    <span class="custom-select-arrow">▼</span>
+                                </div>
+                                <div class="custom-select-options" id="custom-select-bahan-options">
+                                    <div class="custom-select-search">
+                                        <input type="text" id="custom-select-bahan-search" placeholder="Cari bahan..." autocomplete="off">
+                                    </div>
+                                    <div class="custom-options-list" id="custom-select-bahan-list">
+                                        <!-- Diisi oleh JavaScript -->
+                                    </div>
+                                </div>
+                            </div>
+                            <select id="pilih-bahan" style="display: none;">
+                                <option value="">Pilih Bahan</option>
+                                <!-- Diisi oleh JavaScript dari database bahan_baku -->
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="jumlah-bahan">Jumlah</label>
+                            <input type="number" id="jumlah-bahan" step="0.001" placeholder="0.000">
+                        </div>
+                        <div class="form-group">
+                            <label for="satuan-bahan">Satuan</label>
+                            <input type="text" id="satuan-bahan" readonly placeholder="Auto">
+                        </div>
+                        <button type="button" class="btn-simpan-bahan" id="btn-simpan-bahan" onclick="tambahBahanSementara()">Simpan Bahan</button>
+                    </div>
+
+                    <!-- Tabel Bahan Sementara -->
+                    <table class="bahan-sementara-table">
+                        <thead>
+                            <tr>
+                                <th>Nama Bahan</th>
+                                <th>Jumlah</th>
+                                <th>Satuan</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody-bahan-sementara">
+                            <!-- Diisi oleh JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="form-buttons">
+                    <button type="button" class="btn-kembali" onclick="tutupPopupForm()">Kembali</button>
+                    <button type="submit" class="btn-simpan">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/resep-pemilik.js"></script>
+</body>
+</html>

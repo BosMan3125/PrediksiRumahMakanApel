@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Riwayat Pesan - Rumah Makan Apel</title>
+    <link rel="stylesheet" href="css/riwayat-pesan.css">
+</head>
+<body>
+    <!-- SIDEBAR KIRI -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <img src="images/logo.png" alt="Logo" class="sidebar-logo">
+            <span class="sidebar-title">Rumah Makan Apel</span>
+        </div>
+        
+        <nav class="sidebar-menu">
+            <a href="dashboard-pelanggan.html" class="menu-item">
+                <span class="menu-icon">🏠</span>
+                <span>Dashboard</span>
+            </a>
+            <a href="beli-paket.html" class="menu-item">
+                <span class="menu-icon">🛒</span>
+                <span>Beli Paket</span>
+            </a>
+            <a href="riwayat-pesan.html" class="menu-item active">
+                <span class="menu-icon">🕐</span>
+                <span>Riwayat Pesan</span>
+            </a>
+            <button id="btn-logout" class="menu-item btn-logout">
+                <span class="menu-icon">🚪</span>
+                <span>Logout</span>
+            </button>
+        </nav>
+    </div>
+
+    <!-- KONTEN UTAMA -->
+    <div class="main-content">
+        <!-- HEADER ATAS -->
+        <header class="top-header">
+            <div class="header-right">
+                <span class="user-icon">👤</span>
+                <span class="user-name" id="display-username">User</span>
+            </div>
+        </header>
+
+        <!-- BANNER -->
+        <div class="page-banner">
+            <h1>Riwayat Pesan</h1>
+            <p>Daftar semua pesanan Anda</p>
+        </div>
+
+        <!-- SEARCH BAR -->
+        <div class="search-container">
+            <input type="text" id="search-input" class="search-input" placeholder="Cari...">
+        </div>
+
+        <!-- DAFTAR PESANAN -->
+        <div class="riwayat-grid" id="riwayat-grid">
+            <!-- Pesanan akan dimuat dari database via JavaScript -->
+        </div>
+    </div>
+
+    <!-- POPUP DETAIL PESANAN -->
+    <div id="popup-detail" class="popup-overlay" style="display: none;">
+        <div class="popup-box popup-detail-box">
+            <button class="popup-close" id="close-popup-detail">✕</button>
+            <h2 id="popup-detail-title">Detail Pesanan #PO-001</h2>
+            
+            <div class="popup-detail-content">
+                <div class="detail-row">
+                    <span class="detail-label">📅 Tanggal Pesan</span>
+                    <span class="detail-value" id="popup-tanggal-pesan">: -</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">⏰ Tanggal Ambil</span>
+                    <span class="detail-value" id="popup-tanggal-ambil">: -</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">📦 Nama Paket</span>
+                    <span class="detail-value" id="popup-nama-paket">: -</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">️ Jumlah Porsi</span>
+                    <span class="detail-value" id="popup-jumlah-porsi">: -</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">💰 Harga per Porsi</span>
+                    <span class="detail-value" id="popup-harga-porsi">: -</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">💸 Total Harga</span>
+                    <span class="detail-value" id="popup-total-harga">: -</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label"> Status</span>
+                    <span class="detail-value" id="popup-status">: -</span>
+                </div>
+                
+                <div class="isi-paket-section">
+                    <h4>📋 Isi Paket (per 1 porsi):</h4>
+                    <ul id="popup-isi-paket">
+                        <li>Nasi</li>
+                        <li>Telur Balado</li>
+                        <li>Gulai Pakis</li>
+                        <li>Air Mineral</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="popup-buttons">
+                <button class="btn-tutup" id="btn-tutup-popup">Tutup</button>
+                <button class="btn-batalkan" id="btn-batalkan-popup">Batalkan Pesanan</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="Mid-client-Ju-5Bs8UKRcVDbwW"></script>
+    <script src="js/riwayat-pesan.js?v=1.2"></script>
+</body>
+</html>

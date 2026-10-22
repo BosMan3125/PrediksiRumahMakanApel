@@ -1,0 +1,185 @@
+/* Reset Dasar */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #1a1a1a;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Container Utama */
+.login-wrapper {
+    display: flex;
+    width: 100%;
+    max-width: 900px;
+    background-color: #c0392b; /* Warna merah di luar */
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    min-height: 550px;
+}
+
+/* Sisi Kiri: Form */
+.login-box {
+    width: 45%;
+    background-color: #ffffff;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.login-header {
+    margin-bottom: 30px;
+}
+
+/* INI KUNCINYA: Batasi ukuran logo di form */
+.app-logo {
+    width: 150px;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.login-header h1 {
+    font-size: 28px;
+    color: #1a1a1a;
+    margin-bottom: 5px;
+}
+
+.login-header p {
+    font-size: 13px;
+    color: #666;
+}
+
+/* Form Elements */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.form-group input[type="text"],
+.form-group input[type="password"] {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.form-group input:focus {
+    border-color: #e31e24;
+}
+
+.form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    margin-bottom: 25px;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: #555;
+    cursor: pointer;
+}
+
+.forgot-password {
+    color: #3498db;
+    text-decoration: none;
+}
+
+.btn-login {
+    width: 100%;
+    padding: 12px;
+    background-color: #e31e24;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-bottom: 20px;
+    transition: background-color 0.3s;
+}
+
+.btn-login:hover {
+    background-color: #c0392b;
+}
+
+.register-link {
+    text-align: center;
+    font-size: 12px;
+    color: #555;
+}
+
+.register-link a {
+    color: #3498db;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+/* Sisi Kanan: Banner */
+.login-banner {
+    width: 55%;
+    /* INI KUNCINYA: Pakai background-image, bukan <img> tag */
+    background-image: url('../images/banner.png');
+    background-size: cover; /* Otomatis crop agar pas */
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    padding: 40px;
+}
+
+/* Overlay gelap agar tulisan terbaca */
+.login-banner::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.banner-content {
+    position: relative;
+    z-index: 2;
+}
+
+.banner-logo {
+    width: 80px;
+    height: auto;
+    margin-bottom: 15px;
+}
+
+.banner-content h1 {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.banner-content p {
+    font-size: 14px;
+    line-height: 1.5;
+}

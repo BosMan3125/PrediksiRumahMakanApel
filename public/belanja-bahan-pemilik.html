@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Belanja Bahan - Rumah Makan Apel</title>
+    <link rel="stylesheet" href="css/belanja-bahan-pemilik.css">
+</head>
+<body>
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <img src="images/logo.png" alt="Logo" class="sidebar-logo">
+            <span class="sidebar-title">Rumah Makan Apel</span>
+        </div>
+        
+        <nav class="sidebar-menu">
+            <a href="dashboard-pemilik.html" class="menu-item">
+                <span class="menu-icon">🏠</span>
+                <span>Dashboard</span>
+            </a>
+            <a href="bahan-baku-pemilik.html" class="menu-item">
+                <span class="menu-icon">📦</span>
+                <span>Bahan Baku</span>
+            </a>
+            <a href="resep-pemilik.html" class="menu-item">
+                <span class="menu-icon">📝</span>
+                <span>Resep</span>
+            </a>
+            <a href="penjualan-pemilik.html" class="menu-item">
+                <span class="menu-icon">💰</span>
+                <span>Penjualan</span>
+            </a>
+            <a href="pre-order-pemilik.html" class="menu-item">
+                <span class="menu-icon">🧾</span>
+                <span>Pre-Order</span>
+            </a>
+            <a href="prediksi-pemilik.html" class="menu-item">
+                <span class="menu-icon">📊</span>
+                <span>Prediksi</span>
+            </a>
+            <a href="belanja-bahan-pemilik.html" class="menu-item active">
+                <span class="menu-icon">🛍️</span>
+                <span>Belanja Bahan</span>
+            </a>
+            
+            <button id="btn-logout" class="menu-item btn-logout">
+                <span class="menu-icon">🚪</span>
+                <span>Logout</span>
+            </button>
+        </nav>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
+        <!-- HEADER -->
+        <header class="top-header">
+            <div class="header-left">
+                <h1>Belanja Bahan</h1>
+                <p>Berisikan Daftar Bahan Baku yang akan dibeli</p>
+            </div>
+            <div class="header-right">
+                <span class="user-icon"></span>
+                <span class="user-name" id="display-username">Pemilik</span>
+            </div>
+        </header>
+
+        <!-- TABS -->
+        <div class="tabs-container">
+            <button class="tab-btn active" data-tab="daftar" onclick="switchTab('daftar')">Daftar Belanja</button>
+            <button class="tab-btn" data-tab="riwayat" onclick="switchTab('riwayat')">Riwayat Belanja</button>
+        </div>
+
+        <!-- TAB: DAFTAR BELANJA -->
+        <div id="tab-daftar" class="tab-content active">
+            <div class="action-bar">
+                <div class="search-container">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" id="search-daftar" class="search-input" placeholder="Cari..." oninput="filterDaftarBelanja()">
+                </div>
+            </div>
+
+            <div class="table-container">
+                <table class="belanja-table">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Nama Bahan Baku</th>
+                            <th>Satuan</th>
+                            <th>Jumlah Rekomendasi</th>
+                            <th>Estimasi Harga</th>
+                            <th>Sumber</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody-daftar-belanja">
+                        <tr><td colspan="7" style="text-align: center; color: #999;">Memuat data...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="action-footer">
+                <button class="btn-simpan-daftar" onclick="submitDaftarBelanja()">Simpan</button>
+            </div>
+        </div>
+
+        <!-- TAB: RIWAYAT BELANJA -->
+        <div id="tab-riwayat" class="tab-content">
+            <div class="action-bar">
+                <div class="search-container">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" id="search-riwayat" class="search-input" placeholder="Cari..." oninput="filterRiwayatBelanja()">
+                </div>
+                <select id="filter-riwayat" class="filter-select" onchange="loadRiwayatBelanja()">
+                    <option value="">Filter Waktu</option>
+                    <option value="hari_ini">Hari ini</option>
+                    <option value="minggu_ini">Minggu ini</option>
+                    <option value="bulan_ini">Bulan ini</option>
+                </select>
+                <select id="filter-status-riwayat" class="filter-select" onchange="loadRiwayatBelanja()">
+                    <option value="">Filter Status</option>
+                    <option value="belum">Belum Dibeli</option>
+                    <option value="selesai">Sudah Dibeli</option>
+                </select>
+                <select id="filter-sumber-riwayat" class="filter-select" onchange="loadRiwayatBelanja()">
+                    <option value="">Filter Sumber</option>
+                    <option value="Pre-Order">Pre-Order</option>
+                    <option value="Prediksi">Prediksi</option>
+                </select>
+            </div>
+
+            <div class="cards-container" id="cards-riwayat">
+                <p style="text-align: center; color: #999; padding: 40px;">Memuat data...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- POPUP EDIT BELANJA BAHAN (Tab Daftar) -->
+    <div id="popup-edit-daftar" class="popup-overlay" style="display: none;">
+        <div class="popup-box popup-form-box">
+            <button class="popup-close" onclick="tutupPopupEditDaftar()">✕</button>
+            <h2>Edit Belanja Bahan</h2>
+            
+            <form id="form-edit-daftar">
+                <div class="form-group">
+                    <label for="edit-nama-bahan">Nama Bahan Baku</label>
+                    <input type="text" id="edit-nama-bahan" readonly>
+                </div>
+
+                <div class="form-row-2">
+                    <div class="form-group">
+                        <label for="edit-satuan">Satuan</label>
+                        <input type="text" id="edit-satuan" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-harga-satuan">Estimasi Harga Satuan</label>
+                        <input type="number" id="edit-harga-satuan" step="0.01" min="0">
+                    </div>
+                </div>
+
+                <div class="form-row-2">
+                    <div class="form-group">
+                        <label for="edit-jumlah">Jumlah Rekomendasi</label>
+                        <input type="number" id="edit-jumlah" step="0.001" min="0">
+                    </div>
+                    <div class="form-group">
+                        <label>Estimasi Total :</label>
+                        <div id="edit-total-harga" class="total-display">Rp 0</div>
+                    </div>
+                </div>
+
+                <div class="form-buttons">
+                    <button type="button" class="btn-kembali" onclick="tutupPopupEditDaftar()">Kembali</button>
+                    <button type="submit" class="btn-simpan">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- POPUP DETAIL RIWAYAT BELANJA -->
+    <div id="popup-detail-riwayat" class="popup-overlay" style="display: none;">
+        <div class="popup-box popup-detail-box">
+            <button class="popup-close" onclick="tutupPopupDetail()">✕</button>
+            <h2>Detail Daftar Belanja</h2>
+            
+            <div class="detail-info">
+                <p>📅 <strong>Tanggal Rencana Belanja :</strong> <span id="detail-tanggal"></span></p>
+                <p>💰 <strong>Total Harga :</strong> <span id="detail-total"></span></p>
+                <p>📄 <strong>Status :</strong> <span id="detail-status"></span></p>
+                <p>🏷️ <strong>Sumber :</strong> <span id="detail-sumber"></span></p>
+            </div>
+
+            <h3>Detail bahan yang akan dibeli;</h3>
+            <div class="detail-table-container">
+                <table class="detail-table">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Nama Bahan</th>
+                            <th>Satuan</th>
+                            <th>Jumlah</th>
+                            <th>Harga Satuan</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody-detail-riwayat">
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="form-buttons">
+                <button class="btn-edit" onclick="bukaPopupEditDetail()">Edit</button>
+                <button class="btn-selesai" onclick="tandaiSelesai()">Tandai Selesai</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- POPUP EDIT DETAIL BAHAN (Tab Riwayat) -->
+    <div id="popup-edit-detail" class="popup-overlay" style="display: none;">
+        <div class="popup-box popup-edit-detail-box">
+            <button class="popup-close" onclick="tutupPopupEditDetail()"></button>
+            <h2>Edit Detail Bahan</h2>
+            
+            <div class="edit-detail-table-container">
+                <table class="edit-detail-table">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Nama Bahan</th>
+                            <th>Satuan</th>
+                            <th>Jumlah</th>
+                            <th>Harga Satuan</th>
+                            <th>Total</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody-edit-detail">
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="form-buttons">
+                <button class="btn-kembali" onclick="tutupPopupEditDetail()">Kembali</button>
+                <button class="btn-simpan" onclick="simpanEditDetail()">Simpan</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- html2pdf library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="js/belanja-bahan-pemilik.js"></script>
+</body>
+</html>

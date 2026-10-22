@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pre-Order - Rumah Makan Apel</title>
+    <link rel="stylesheet" href="css/pre-order-pemilik.css">
+</head>
+<body>
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <img src="images/logo.png" alt="Logo" class="sidebar-logo">
+            <span class="sidebar-title">Rumah Makan Apel</span>
+        </div>
+        
+        <nav class="sidebar-menu">
+            <a href="dashboard-pemilik.html" class="menu-item">
+                <span class="menu-icon">🏠</span>
+                <span>Dashboard</span>
+            </a>
+            <a href="bahan-baku-pemilik.html" class="menu-item">
+                <span class="menu-icon">📦</span>
+                <span>Bahan Baku</span>
+            </a>
+            <a href="resep-pemilik.html" class="menu-item">
+                <span class="menu-icon">📝</span>
+                <span>Resep</span>
+            </a>
+            <a href="penjualan-pemilik.html" class="menu-item">
+                <span class="menu-icon">💰</span>
+                <span>Penjualan</span>
+            </a>
+            <a href="pre-order-pemilik.html" class="menu-item active">
+                <span class="menu-icon">🧾</span>
+                <span>Pre-Order</span>
+            </a>
+            <a href="prediksi-pemilik.html" class="menu-item">
+                <span class="menu-icon">📊</span>
+                <span>Prediksi</span>
+            </a>
+            <a href="belanja-bahan-pemilik.html" class="menu-item">
+                <span class="menu-icon">🛍️</span>
+                <span>Belanja Bahan</span>
+            </a>
+            
+            <button id="btn-logout" class="menu-item btn-logout">
+                <span class="menu-icon">🚪</span>
+                <span>Logout</span>
+            </button>
+        </nav>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
+        <!-- HEADER -->
+        <header class="top-header">
+            <div class="header-left">
+                <h1>Pre-Order</h1>
+                <p>Pemilik dapat mengelola paket pada pesanan preoder beserta validasi pelanggannya</p>
+            </div>
+            <div class="header-right">
+                <span class="user-icon">👤</span>
+                <span class="user-name" id="display-username">Pemilik</span>
+            </div>
+        </header>
+
+        <!-- TABS -->
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="pesanan-pelanggan">Pesanan Pelanggan</button>
+            <button class="tab-btn" data-tab="atur-paket">Atur Pesanan Paket</button>
+        </div>
+
+        <!-- TAB CONTENT: PESANAN PELANGGAN -->
+        <div class="tab-content active" id="tab-pesanan-pelanggan">
+            <div class="search-container" style="display: flex; gap: 10px; align-items: center; margin-bottom: 20px; flex-wrap: wrap;">
+                <input type="text" id="search-pesanan" class="search-input" placeholder="Cari..." style="flex: 1; min-width: 200px;">
+                <select id="filter-status-pesanan" style="padding: 12px 15px; border: 2px solid #e0e0e0; border-radius: 6px; font-size: 14px; outline: none; background: white; cursor: pointer; color: #333; font-weight: 500; min-width: 180px;">
+                    <option value="semua">Filter Status (Semua)</option>
+                    <option value="pending">Pending</option>
+                    <option value="menunggu_dp">Menunggu DP</option>
+                    <option value="dp_dibayar">DP Dibayar</option>
+                    <option value="diproduksi">Diproduksi</option>
+                    <option value="menunggu_pelunasan">Menunggu Pelunasan</option>
+                    <option value="lunas">Lunas</option>
+                    <option value="ditolak">Ditolak</option>
+                </select>
+            </div>
+
+            <div class="table-container">
+                <table class="pesanan-table">
+                    <thead>
+                        <tr>
+                            <th>ID Pelanggan</th>
+                            <th>Nama Pelanggan</th>
+                            <th>No.Hp</th>
+                            <th>Paket</th>
+                            <th>Jumlah</th>
+                            <th>Jadwal Ambil</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody-pesanan-pelanggan">
+                        <tr><td colspan="7" style="text-align: center; color: #999;">Memuat data...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- TAB CONTENT: ATUR PAKET -->
+        <div class="tab-content" id="tab-atur-paket">
+            <div class="search-container">
+                <input type="text" id="search-paket" class="search-input" placeholder="Cari...">
+            </div>
+
+            <div class="paket-grid" id="paket-grid">
+                <!-- Paket cards akan diisi oleh JavaScript -->
+            </div>
+            
+            <div class="tambah-paket-card" onclick="bukaPopupTambahPaket()">
+                <span>+ Tambah Paket</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- POPUP DETAIL PESANAN -->
+    <div id="popup-detail-pesanan" class="popup-overlay" style="display: none;">
+        <div class="popup-box popup-detail-box">
+            <button class="popup-close" onclick="tutupPopupDetailPesanan()">✕</button>
+            <h2>Detail Pesanan Pre-Order</h2>
+            
+            <div class="popup-content">
+                <div class="section">
+                    <h3>👤 Informasi Pelanggan:</h3>
+                    <div class="info-row">
+                        <span class="info-label">Nama</span>
+                        <span class="info-value" id="detail-nama-pelanggan">: -</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">No. HP</span>
+                        <span class="info-value" id="detail-no-hp">: -</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Alamat</span>
+                        <span class="info-value" id="detail-alamat">: -</span>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h3>📦 Detail Pesanan:</h3>
+                    <div class="info-row">
+                        <span class="info-label">Paket</span>
+                        <span class="info-value" id="detail-paket">: -</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Jumlah</span>
+                        <span class="info-value" id="detail-jumlah">: -</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Harga</span>
+                        <span class="info-value" id="detail-harga">: -</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Total</span>
+                        <span class="info-value" id="detail-total">: -</span>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h3>📅 Jadwal Ambil:</h3>
+                    <div class="info-row">
+                        <span class="info-label">Tanggal</span>
+                        <span class="info-value" id="detail-tanggal">: -</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Waktu</span>
+                        <span class="info-value" id="detail-waktu">: -</span>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h3>📦 Isi Paket (per 1 porsi):</h3>
+                    <ul id="detail-isi-paket">
+                        <li>-</li>
+                    </ul>
+                </div>
+
+                <div class="section">
+                    <div class="info-row">
+                        <span class="info-label">Status</span>
+                        <span class="info-value"><span id="detail-status" class="status-badge">Pending</span></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="popup-buttons">
+                <button class="btn-tolak" onclick="tolakPesanan()">Ditolak</button>
+                <button class="btn-terima" onclick="terimaPesanan()">Diterima</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- POPUP TERIMA PESANAN (Kirim Tagihan DP) -->
+    <div id="popup-terima-pesanan" class="popup-overlay" style="display: none;">
+        <div class="popup-box popup-detail-box" style="max-width: 400px; text-align: center;">
+            <button class="popup-close" onclick="tutupPopupTerimaPesanan()">✕</button>
+            <h2 style="color: #27ae60; margin-bottom: 10px;">Pesanan Diterima</h2>
+            <p>Anda telah menerima pesanan pelanggan ini.</p>
+            
+            <div style="margin: 20px 0; padding: 15px; background: #f9f9f9; border-radius: 8px;">
+                <p style="font-weight: bold; margin-bottom: 10px;">Kirim Tagihan Pembayaran DP 50% Awal</p>
+                <div class="form-group" style="text-align: left;">
+                    <label for="batas-waktu-dp">Batas Waktu Pembayaran (Cooldown):</label>
+                    <select id="batas-waktu-dp" style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ddd; margin-top: 5px;">
+                        <option value="1">1 Jam</option>
+                        <option value="6">6 Jam</option>
+                        <option value="12">12 Jam</option>
+                        <option value="24" selected>24 Jam</option>
+                        <option value="48">48 Jam</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="popup-buttons" style="justify-content: center;">
+                <button class="btn-terima" onclick="kirimTagihanDPAwal()" style="width: 100%;">Kirim Tagihan DP 50%</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- POPUP TAGIHAN AKHIR -->
+    <div id="popup-tagihan-akhir" class="popup-overlay" style="display: none;">
+        <div class="popup-box popup-detail-box" style="max-width: 400px; text-align: center;">
+            <button class="popup-close" onclick="tutupPopupTagihanAkhir()">✕</button>
+            <h2 style="color: #2980b9; margin-bottom: 10px;">Kirim Tagihan Pelunasan</h2>
+            <p>Pesanan telah selesai diproduksi. Kirim tagihan untuk sisa pembayaran.</p>
+            
+            <div style="margin: 20px 0; padding: 15px; background: #f9f9f9; border-radius: 8px;">
+                <p style="font-weight: bold; margin-bottom: 10px;">Pilih Jenis Pelunasan</p>
+                <div class="form-group" style="text-align: left;">
+                    <label for="batas-waktu-pelunasan">Batas Waktu Pembayaran (Cooldown):</label>
+                    <select id="batas-waktu-pelunasan" style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ddd; margin-top: 5px;">
+                        <option value="1">1 Jam</option>
+                        <option value="6">6 Jam</option>
+                        <option value="12">12 Jam</option>
+                        <option value="24" selected>24 Jam</option>
+                        <option value="48">48 Jam</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="popup-buttons" style="display: flex; flex-direction: column; gap: 10px;">
+                <button class="btn-terima" onclick="kirimTagihanDPAkhir()" style="width: 100%;">Kirim Bayar DP 50% Akhir</button>
+                <button class="btn-terima" onclick="kirimTagihanLunasLangsung()" style="width: 100%; background-color: #2980b9;">Kirim Bayar Lunas Langsung</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- POPUP TAMBAH/EDIT PAKET -->
+    <div id="popup-tambah-paket" class="popup-overlay" style="display: none;">
+        <div class="popup-box popup-form-box">
+            <button class="popup-close" onclick="tutupPopupTambahPaket()">✕</button>
+            <h2 id="popup-tambah-paket-title">Tambah Paket Pesanan</h2>
+            
+            <form id="form-paket">
+                <div class="form-group">
+                    <label for="nama-paket">Nama Paket</label>
+                    <input type="text" id="nama-paket" name="nama_paket" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="harga-paket">Harga per porsi</label>
+                    <input type="number" id="harga-paket" name="harga_per_porsi" required>
+                </div>
+
+                <!-- BAGIAN INI YANG DIPERBAIKI: File Upload dengan Preview -->
+                <div class="form-group">
+                    <label>Pilih Gambar Paket</label>
+                    <input type="file" id="gambar-paket" name="gambar" accept="image/*" style="display: none;">
+                    <div class="file-input-wrapper">
+                        <button type="button" class="btn-choose-file" onclick="document.getElementById('gambar-paket').click()">📁 Pilih File Gambar</button>
+                        <span id="file-name" class="file-name">Belum ada file dipilih</span>
+                    </div>
+                    <div id="image-preview" class="image-preview" style="display: none;">
+                        <img id="preview-img" src="" alt="Preview">
+                        <button type="button" class="btn-remove-image" onclick="removeImage()">✕</button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Pilih Menu untuk Paket</label>
+                    <div class="menu-checkbox-container" id="menu-checkbox-container">
+                        <!-- Checkbox menu akan diisi oleh JavaScript -->
+                    </div>
+                </div>
+
+                <div class="form-buttons">
+                    <button type="button" class="btn-kembali" onclick="tutupPopupTambahPaket()">Kembali</button>
+                    <button type="submit" class="btn-simpan">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- POPUP KEBUTUHAN BAHAN BAKU -->
+    <div id="popup-kebutuhan-bahan" class="popup-overlay" style="display: none;">
+        <div class="popup-box popup-detail-box" style="max-width: 650px; background: #ffffff; border-radius: 12px; padding: 25px;">
+            <button class="popup-close" onclick="tutupPopupKebutuhanBahan()">✕</button>
+            
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 2px solid #f0f0f0; padding-bottom: 12px; padding-right: 25px;">
+                <h2 style="color: #d35400; margin: 0; font-size: 20px;">📋 Kalkulasi Kebutuhan Bahan Baku</h2>
+            </div>
+
+            <div id="area-cetak-pdf" style="padding: 10px; background: white;">
+                <div style="margin-bottom: 15px; font-size: 14px; background: #fdfefe; border: 1px solid #ebedef; padding: 12px; border-radius: 8px;">
+                    <p style="margin: 4px 0;"><strong>Pesanan:</strong> <span id="kb-po-id">-</span> (<span id="kb-pelanggan">-</span>)</p>
+                    <p style="margin: 4px 0;"><strong>Paket:</strong> <span id="kb-paket">-</span> (<span id="kb-porsi">-</span> Porsi)</p>
+                    <p style="margin: 4px 0;"><strong>Status Pesanan:</strong> <span id="kb-status">-</span></p>
+                    <p style="margin: 4px 0;"><strong>Sumber:</strong> <span style="padding: 2px 8px; border-radius: 4px; font-weight: bold; background: #e3f2fd; color: #0d47a1;">Pre-Order</span></p>
+                </div>
+
+                <div style="max-height: 320px; overflow-y: auto;">
+                    <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 13px; margin-top: 5px;">
+                        <thead>
+                            <tr style="background: #f8f9fa; border-bottom: 2px solid #dee2e6;">
+                                <th style="padding: 10px; color: #495057;">Bahan Baku</th>
+                                <th style="padding: 10px; color: #495057;">Kebutuhan</th>
+                                <th style="padding: 10px; color: #495057;">Stok Saat Ini</th>
+                                <th style="padding: 10px; color: #495057;">Status Stok</th>
+                                <th style="padding: 10px; color: #495057;">Kekurangan</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody-kebutuhan-bahan">
+                            <!-- Populated dynamically by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="popup-buttons" style="margin-top: 20px; display: flex; justify-content: flex-end; gap: 8px; align-items: center; flex-wrap: wrap;">
+                <button id="btn-kirim-belanja-kb" onclick="kirimKekuranganKeBelanja()" style="background: #2ecc71; color: white; border: none; padding: 10px 16px; border-radius: 6px; cursor: pointer; font-weight: bold; display: none;">🛒 Masukkan Kekurangan ke Daftar Belanja</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- HTML2PDF CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="js/pre-order-pemilik.js"></script>
+</body>
+</html>

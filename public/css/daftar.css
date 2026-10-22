@@ -1,0 +1,278 @@
+/* ===== RESET DASAR ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #1a1a1a;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+/* ===== CONTAINER UTAMA ===== */
+.daftar-wrapper {
+    display: flex;
+    width: 100%;
+    max-width: 900px;
+    background-color: #c0392b;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    min-height: 650px;
+}
+
+/* ===== SISI KIRI: FORM DAFTAR ===== */
+.daftar-box {
+    width: 50%;
+    background-color: #ffffff;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+}
+
+.daftar-header h1 {
+    font-size: 32px;
+    color: #1a1a1a;
+    margin-bottom: 30px;
+}
+
+/* ===== FORM INPUT ===== */
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 6px;
+}
+
+.form-group input[type="text"],
+.form-group input[type="password"] {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #e0e0e0;
+    border-radius: 6px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.form-group input:focus {
+    border-color: #e31e24;
+}
+
+/* ===== TOMBOL DAFTAR ===== */
+.btn-daftar {
+    width: 100%;
+    padding: 14px;
+    background-color: #e31e24;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s;
+}
+
+.btn-daftar:hover {
+    background-color: #c0392b;
+}
+
+/* ===== SISI KANAN: BANNER ===== */
+.daftar-banner {
+    width: 50%;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)),
+                url('../images/banner.png') center/cover no-repeat;
+    background-color: #555;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    color: white;
+    text-align: center;
+}
+
+.banner-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 60px;
+}
+
+.banner-logo {
+    width: 40px;
+    height: auto;
+}
+
+.banner-title {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.banner-content h1 {
+    font-size: 40px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.banner-content p {
+    font-size: 16px;
+    opacity: 0.9;
+    line-height: 1.5;
+}
+
+/* ===== POPUP SUKSES ===== */
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.popup-box {
+    background-color: white;
+    padding: 40px;
+    border-radius: 12px;
+    text-align: center;
+    max-width: 400px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+.popup-icon {
+    margin-bottom: 20px;
+}
+
+.popup-box h2 {
+    font-size: 22px;
+    color: #1a1a1a;
+    margin-bottom: 10px;
+}
+
+.popup-box p {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 25px;
+}
+
+.btn-kembali {
+    display: inline-block;
+    padding: 12px 30px;
+    background-color: #e0e0e0;
+    color: #333;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 600;
+    transition: background-color 0.3s;
+}
+
+.btn-kembali:hover {
+    background-color: #d0d0d0;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+    .daftar-wrapper {
+        flex-direction: column;
+    }
+
+    .daftar-box,
+    .daftar-banner {
+        width: 100%;
+    }
+
+    .banner-header {
+        margin-bottom: 30px;
+    }
+}
+
+/* ===== FILE UPLOAD STYLING ===== */
+.file-input-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 8px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 6px;
+    border: 2px dashed #e0e0e0;
+}
+
+.btn-choose-file {
+    padding: 8px 15px;
+    background-color: #e31e24;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    white-space: nowrap;
+    transition: background-color 0.3s;
+}
+
+.btn-choose-file:hover {
+    background-color: #c0392b;
+}
+
+.file-name {
+    font-size: 13px;
+    color: #666;
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.image-preview {
+    position: relative;
+    margin-top: 10px;
+    border-radius: 8px;
+    overflow: hidden;
+    max-width: 300px;
+    border: 2px solid #e0e0e0;
+}
+
+.image-preview img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.btn-remove-image {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: rgba(231, 76, 60, 0.9);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s;
+}
+
+.btn-remove-image:hover {
+    background-color: rgba(192, 57, 43, 1);
+}

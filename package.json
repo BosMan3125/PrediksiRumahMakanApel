@@ -1,0 +1,23 @@
+{
+  "name": "rumah-makan-apel",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "body-parser": "^2.3.0",
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
+    "express-session": "^1.19.0",
+    "midtrans-client": "^1.4.3",
+    "multer": "^2.2.0",
+    "mysql2": "^3.23.2",
+    "node-cron": "^4.6.0"
+  }
+}

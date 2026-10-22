@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediksi - Rumah Makan Apel</title>
+    <link rel="stylesheet" href="css/prediksi-pemilik.css">
+</head>
+
+<body>
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <img src="images/logo.png" alt="Logo" class="sidebar-logo">
+            <span class="sidebar-title">Rumah Makan Apel</span>
+        </div>
+
+        <nav class="sidebar-menu">
+            <a href="dashboard-pemilik.html" class="menu-item">
+                <span class="menu-icon">🏠</span>
+                <span>Dashboard</span>
+            </a>
+            <a href="bahan-baku-pemilik.html" class="menu-item">
+                <span class="menu-icon">📦</span>
+                <span>Bahan Baku</span>
+            </a>
+            <a href="resep-pemilik.html" class="menu-item">
+                <span class="menu-icon">📝</span>
+                <span>Resep</span>
+            </a>
+            <a href="penjualan-pemilik.html" class="menu-item">
+                <span class="menu-icon">💰</span>
+                <span>Penjualan</span>
+            </a>
+            <a href="pre-order-pemilik.html" class="menu-item">
+                <span class="menu-icon">🧾</span>
+                <span>Pre-Order</span>
+            </a>
+            <a href="prediksi-pemilik.html" class="menu-item active">
+                <span class="menu-icon">📊</span>
+                <span>Prediksi</span>
+            </a>
+            <a href="belanja-bahan-pemilik.html" class="menu-item">
+                <span class="menu-icon">🛍️</span>
+                <span>Belanja Bahan</span>
+            </a>
+
+            <button id="btn-logout" class="menu-item btn-logout">
+                <span class="menu-icon">🚪</span>
+                <span>Logout</span>
+            </button>
+        </nav>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
+        <!-- HEADER -->
+        <header class="top-header">
+            <div class="header-left">
+                <h1>Prediksi</h1>
+                <p>Memperkirakan bahan baku makanan yang akan dibeli berdasarkan dari histori penjualan</p>
+            </div>
+            <div class="header-right">
+                <span class="user-icon">👤</span>
+                <span class="user-name" id="display-username">Pemilik</span>
+            </div>
+        </header>
+
+        <!-- TAB 1: PENJUALAN HARIAN (Main Content) -->
+        <div id="tab-penjualan">
+            <!-- ACTION BAR -->
+            <div class="action-bar" style="display: flex; justify-content: space-between; align-items: center;">
+                <div class="action-left" style="display: flex; align-items: center; gap: 15px;">
+                    <button class="btn-prediksi" id="btn-prediksi" onclick="jalankanPrediksi()">📊 Prediksi</button>
+                    <button class="btn-batalkan" onclick="batalkanPrediksi()" id="btn-batalkan"
+                        style="display: none;">🔄 Reset Tampilan</button>
+                    <button class="btn-prediksi" id="btn-kirim-belanja" onclick="masukkanKeBelanjaBahan()"
+                        style="display: none; background: #27ae60;">🛒 Masukkan ke Belanja Bahan</button>
+                </div>
+                <div id="badge-periode"
+                    style="font-size: 13px; color: #555; background: #eef2f7; padding: 8px 16px; border-radius: 20px; font-weight: 500;">
+                    Periode Tetap: <strong>7 Hari</strong>
+                </div>
+            </div>
+
+            <div id="info-rentang-tanggal"
+                style="margin-bottom: 20px; padding: 12px 18px; background: #e8f4fd; border-left: 4px solid #3498db; border-radius: 6px; color: #195b87; font-size: 14px; font-weight: 500; display: none;">
+                <!-- Diisi oleh JS: Menganalisis data dari ... s/d ... -->
+            </div>
+
+            <!-- CONTAINER CARD KOSONG (PLACEHOLDER AWAL) -->
+            <div id="placeholder-container">
+                <div style="margin-bottom: 15px; color: #777; font-size: 14px;">
+                    💡 <em>Halaman siap diproses. Klik tombol <strong>Prediksi</strong> di atas untuk memprediksi porsi
+                        menu & resep 7 hari ke depan.</em>
+                </div>
+                <div class="card-container" id="grid-placeholder">
+                    <!-- Diisi 6-8 Card Kosong oleh JavaScript -->
+                </div>
+            </div>
+
+            <!-- CONTAINER HASIL PREDIKSI (KARTU RESEP) -->
+            <div id="tabel-prediksi-container" style="display: none;">
+                <div style="margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center;">
+                    <span style="font-size: 15px; font-weight: 600; color: #2c3e50;" id="prediksi-summary-text">
+                        Hasil Prediksi Menu 7 Hari ke Depan
+                    </span>
+                    <span style="font-size: 13px; color: #7f8c8d;">
+                        *Klik kartu untuk melihat rincian bahan baku resep
+                    </span>
+                </div>
+                <div class="card-container" id="grid-resep-prediksi">
+                    <!-- Diisi oleh JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- POPUP DETAIL RESEP PREDIKSI & BAHAN BAKU -->
+    <div id="popup-detail-resep" class="popup-overlay" style="display: none;">
+        <div class="popup-box popup-detail-box"
+            style="max-width: 650px; width: 92%; max-height: 90vh; overflow-y: auto; padding: 25px;">
+            <button class="popup-close" onclick="tutupPopupDetailResep()">✕</button>
+
+            <div class="detail-resep-header"
+                style="display: flex; gap: 20px; align-items: center; margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 15px;">
+                <div
+                    style="width: 110px; height: 110px; flex-shrink: 0; border-radius: 10px; overflow: hidden; background: #f0f0f0; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                    <img id="popup-resep-img" src="" alt="Resep" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <div style="flex: 1;">
+                    <span
+                        style="display: inline-block; background: #e8f8f0; color: #27ae60; font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 12px; margin-bottom: 6px;">
+                        Hasil Kalkulasi WMA
+                    </span>
+                    <h2 id="popup-resep-nama" style="font-size: 22px; color: #1a1a1a; margin-bottom: 6px;">Nama Menu
+                    </h2>
+                    <div style="display: flex; align-items: baseline; gap: 8px;">
+                        <span style="font-size: 14px; color: #555;">Prediksi Pembelian:</span>
+                        <strong id="popup-resep-porsi" style="font-size: 20px; color: #e74c3c;">0 Porsi</strong>
+                        <span style="font-size: 12px; color: #888;">(7 Hari ke Depan)</span>
+                    </div>
+                </div>
+            </div>
+
+            <h3
+                style="font-size: 16px; color: #2c3e50; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+                📦 Rincian Kebutuhan Bahan Baku
+            </h3>
+            <p style="font-size: 13px; color: #666; margin-bottom: 12px;">
+                Jumlah bahan di bawah ini telah disesuaikan otomatis dengan estimasi <strong><span
+                        id="popup-resep-porsi-inline">0</span> porsi</strong> berdasarkan hasil prediksi WMA:
+            </p>
+
+            <table class="prediksi-table"
+                style="width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 13px;">
+                <thead>
+                    <tr style="background: #f8f9fa;">
+                        <th style="padding: 10px; border-bottom: 2px solid #ddd; text-align: left;">Nama Bahan</th>
+                        <th style="padding: 10px; border-bottom: 2px solid #ddd; text-align: right;">Takaran / Porsi
+                        </th>
+                        <th style="padding: 10px; border-bottom: 2px solid #ddd; text-align: right; color: #27ae60;">
+                            Total Kebutuhan</th>
+                        <th style="padding: 10px; border-bottom: 2px solid #ddd; text-align: left;">Satuan</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody-detail-bahan">
+                    <!-- Diisi JS -->
+                </tbody>
+            </table>
+
+            <div style="display: flex; justify-content: flex-end;">
+                <button type="button" class="btn-kembali" onclick="tutupPopupDetailResep()"
+                    style="padding: 9px 24px;">Tutup</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- POPUP KONFIRMASI PREDIKSI -->
+    <div id="popup-konfirmasi-prediksi" class="popup-overlay" style="display: none;">
+        <div class="popup-box" style="max-width: 500px; width: 92%; padding: 25px;">
+            <button class="popup-close" onclick="tutupPopupKonfirmasi()">✕</button>
+            <h2 style="font-size: 20px; color: #1a1a1a; margin-bottom: 15px;">Konfirmasi Prediksi</h2>
+            <p style="font-size: 14px; color: #555; margin-bottom: 20px;">
+                Sistem akan melakukan perhitungan prediksi bahan baku untuk 7 hari ke depan. Pastikan rentang waktu di
+                bawah ini sudah sesuai.
+            </p>
+
+            <div
+                style="background: #f8f9fa; border: 1px solid #e0e0e0; border-radius: 8px; padding: 15px; margin-bottom: 20px;">
+                <div style="margin-bottom: 12px;">
+                    <span
+                        style="display: block; font-size: 12px; color: #888; font-weight: 600; text-transform: uppercase;">Target
+                        Prediksi</span>
+                    <strong id="konfirmasi-target-prediksi" style="font-size: 15px; color: #27ae60;">Memuat...</strong>
+                </div>
+                <div>
+                    <span
+                        style="display: block; font-size: 12px; color: #888; font-weight: 600; text-transform: uppercase;">Sumber
+                        Data Analisis</span>
+                    <strong id="konfirmasi-sumber-data" style="font-size: 14px; color: #2c3e50;">Memuat...</strong>
+                </div>
+            </div>
+
+            <div style="display: flex; justify-content: flex-end; gap: 10px;">
+                <button type="button" class="btn-kembali" onclick="tutupPopupKonfirmasi()"
+                    style="padding: 10px 20px; background: #f1f2f6; color: #2c3e50; border: none; border-radius: 6px; cursor: pointer; font-weight: 600;">Batal</button>
+                <button type="button" class="btn-prediksi" id="btn-lanjutkan-prediksi" onclick="prosesPrediksiWMA()"
+                    style="padding: 10px 20px; border-radius: 6px; font-weight: 600; margin-left: 0;">Lanjutkan
+                    Prediksi</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/prediksi-pemilik.js"></script>
+</body>
+
+</html>

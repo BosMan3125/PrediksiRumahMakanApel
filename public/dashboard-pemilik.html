@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Pemilik - Rumah Makan Apel</title>
+    <link rel="stylesheet" href="css/dashboard-pemilik.css">
+</head>
+
+<body>
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <img src="images/logo.png" alt="Logo" class="sidebar-logo">
+            <span class="sidebar-title">Rumah Makan Apel</span>
+        </div>
+
+        <nav class="sidebar-menu">
+            <a href="dashboard-pemilik.html" class="menu-item active">
+                <span class="menu-icon">🏠</span>
+                <span>Dashboard</span>
+            </a>
+            <a href="bahan-baku-pemilik.html" class="menu-item">
+                <span class="menu-icon">📦</span>
+                <span>Bahan Baku</span>
+            </a>
+            <a href="resep-pemilik.html" class="menu-item">
+                <span class="menu-icon">📝</span>
+                <span>Resep</span>
+            </a>
+            <a href="penjualan-pemilik.html" class="menu-item">
+                <span class="menu-icon">💰</span>
+                <span>Penjualan</span>
+            </a>
+            <!-- INI YANG DIPERBAIKI -->
+            <a href="pre-order-pemilik.html" class="menu-item">
+                <span class="menu-icon">🧾</span>
+                <span>Pre-Order</span>
+            </a>
+            <a href="prediksi-pemilik.html" class="menu-item">
+                <span class="menu-icon">📊</span>
+                <span>Prediksi</span>
+            </a>
+            <a href="belanja-bahan-pemilik.html" class="menu-item">
+                <span class="menu-icon">🛍️</span>
+                <span>Belanja Bahan</span>
+            </a>
+
+            <!-- Logout Button -->
+            <button id="btn-logout" class="menu-item btn-logout">
+                <span class="menu-icon">🚪</span>
+                <span>Logout</span>
+            </button>
+        </nav>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
+        <!-- HEADER -->
+        <header class="top-header">
+            <div class="header-left">
+                <h1>Dashboard</h1>
+                <p>Berisikan statistik singkat mengenai penjualan, bahan baku makanan, menu, dan laporan belanja.</p>
+            </div>
+            <div class="header-right">
+                <span class="user-icon">👤</span>
+                <span class="user-name" id="display-username">Pemilik</span>
+            </div>
+        </header>
+
+        <!-- SUMMARY CARDS -->
+        <div class="summary-cards">
+            <!-- Total Omzet 7 Hari Terakhir -->
+            <div class="card card-sales">
+                <div class="card-header">
+                    <h3>Total Omzet (7 Hari Terakhir)</h3>
+                    <span class="card-icon">💰</span>
+                </div>
+                <div class="card-body">
+                    <div class="sales-amount" id="total-omzet-minggu">Rp 0</div>
+                    <div class="sales-details"
+                        style="font-size: 13px; color: #555; display: flex; flex-direction: column; gap: 6px; margin-top: 10px; padding-top: 10px; border-top: 1px solid #f0f0f0;">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span>Penjualan langsung:</span>
+                            <strong id="total-penjualan-langsung" style="color: #2c3e50;">Rp 0</strong>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span>Pre-Order:</span>
+                            <strong id="total-preorder-lunas" style="color: #27ae60;">Rp 0</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bahan Yang Harus Dibeli -->
+            <div class="card card-ingredients">
+                <div class="card-header">
+                    <h3>Bahan Yang Harus Dibeli</h3>
+                    <span class="box-icon">📦</span>
+                </div>
+                <div class="card-body">
+                    <table class="ingredients-table" id="bahan-harus-dibeli">
+                        <thead>
+                            <tr>
+                                <th>No.</th>
+                                <th>Nama Bahan</th>
+                                <th>Satuan</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="3" style="text-align: center; color: #999;">Memuat data...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div style="margin-top: 12px; text-align: right;">
+                        <a href="bahan-baku-pemilik.html"
+                            style="color: #000000; font-size: 12px; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 4px;">Lihat
+                            Selengkapnya →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Top Menu -->
+            <div class="card card-top-menu">
+                <div class="card-header">
+                    <h3>Top Menu</h3>
+                    <span class="card-icon">📄</span>
+                </div>
+                <div class="card-body">
+                    <table class="top-menu-table" id="top-menu">
+                        <thead>
+                            <tr>
+                                <th>No.</th>
+                                <th>Nama Menu</th>
+                                <th>Jumlah</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="3" style="text-align: center; color: #999;">Memuat data...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- STATISTICS CHARTS -->
+        <div class="statistics-section">
+            <!-- Statistik Penjualan -->
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h3>Statistik Penjualan</h3>
+                    <select id="filter-bulan-penjualan" class="filter-select">
+                        <option value="this_month">Bulan Ini</option>
+                        <option value="last_month">Bulan Lalu</option>
+                    </select>
+                </div>
+                <div class="chart-body">
+                    <canvas id="chart-penjualan"></canvas>
+                </div>
+            </div>
+
+            <!-- Statistik Pre-Order -->
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h3>Statistik Pre Order Pesanan</h3>
+                    <select id="filter-bulan-preorder" class="filter-select">
+                        <option value="this_month">Bulan Ini</option>
+                        <option value="last_month">Bulan Lalu</option>
+                    </select>
+                </div>
+                <div class="chart-body">
+                    <canvas id="chart-preorder"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRE-ORDER TABLE -->
+        <div class="preorder-section">
+            <div class="section-header">
+                <h3>Pre-Order</h3>
+                <span class="section-icon">👥</span>
+            </div>
+            <div class="table-container">
+                <table class="preorder-table" id="preorder-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nama Pelanggan</th>
+                            <th>P. Pesan</th>
+                            <th>Jumlah</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="5" style="text-align: center; color: #999;">Memuat data...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chart.js Library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/dashboard-pemilik.js"></script>
+</body>
+
+</html>

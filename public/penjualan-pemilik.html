@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Penjualan - Rumah Makan Apel</title>
+    <link rel="stylesheet" href="css/penjualan-pemilik.css">
+</head>
+<body>
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <img src="images/logo.png" alt="Logo" class="sidebar-logo">
+            <span class="sidebar-title">Rumah Makan Apel</span>
+        </div>
+        
+        <nav class="sidebar-menu">
+            <a href="dashboard-pemilik.html" class="menu-item">
+                <span class="menu-icon">🏠</span>
+                <span>Dashboard</span>
+            </a>
+            <a href="bahan-baku-pemilik.html" class="menu-item">
+                <span class="menu-icon">📦</span>
+                <span>Bahan Baku</span>
+            </a>
+            <a href="resep-pemilik.html" class="menu-item">
+                <span class="menu-icon">📝</span>
+                <span>Resep</span>
+            </a>
+            <a href="penjualan-pemilik.html" class="menu-item active">
+                <span class="menu-icon">💰</span>
+                <span>Penjualan</span>
+            </a>
+            <a href="pre-order-pemilik.html" class="menu-item">
+                <span class="menu-icon">🧾</span>
+                <span>Pre-Order</span>
+            </a>
+            <a href="prediksi-pemilik.html" class="menu-item">
+                <span class="menu-icon">📊</span>
+                <span>Prediksi</span>
+            </a>
+            <a href="belanja-bahan-pemilik.html" class="menu-item">
+                <span class="menu-icon">🛍️</span>
+                <span>Belanja Bahan</span>
+            </a>
+            
+            <button id="btn-logout" class="menu-item btn-logout">
+                <span class="menu-icon">🚪</span>
+                <span>Logout</span>
+            </button>
+        </nav>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
+        <!-- HEADER -->
+        <header class="top-header">
+            <div class="header-left">
+                <h1>Penjualan</h1>
+                <p>Berisikan data penjualan, penjualan didapat dari pembeli langsung dan preorder.</p>
+            </div>
+            <div class="header-right">
+                <span class="user-icon">👤</span>
+                <span class="user-name" id="display-username">Pemilik</span>
+            </div>
+        </header>
+
+        <!-- SEARCH & ADD BUTTON -->
+        <div class="action-bar">
+            <div class="search-container">
+                <input type="text" id="search-penjualan" class="search-input" placeholder="Cari...">
+            </div>
+            <button class="btn-tambah" onclick="bukaPopupTambah()">+ Tambah</button>
+        </div>
+
+        <!-- TABLE -->
+        <div class="table-container">
+            <table class="penjualan-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Tanggal</th>
+                        <th>Nama</th>
+                        <th>Sumber</th>
+                        <th>Total Porsi</th>
+                        <th>Total Harga</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody-penjualan">
+                    <tr><td colspan="7" style="text-align: center; color: #999;">Memuat data...</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- POPUP TAMBAH PENJUALAN -->
+    <div id="popup-penjualan" class="popup-overlay" style="display: none;">
+        <div class="popup-box popup-form-box">
+            <button class="popup-close" onclick="tutupPopup()">✕</button>
+            <h2 id="popup-title">Tambah Penjualan</h2>
+            
+            <form id="form-penjualan">
+                <div class="form-group">
+                    <label for="nama-pelanggan">Nama Pelanggan</label>
+                    <input type="text" id="nama-pelanggan" name="nama_pelanggan" placeholder="Masukkan nama pelanggan..." required>
+                </div>
+
+                <div class="form-group">
+                    <label for="tanggal-penjualan">Tanggal</label>
+                    <input type="date" id="tanggal-penjualan" name="tanggal" required>
+                </div>
+
+                <!-- Masukkan Menu Pelanggan -->
+                <div class="menu-section">
+                    <h3>Masukkan Menu Pelanggan</h3>
+                    <div class="menu-input-row">
+                        <div class="form-group">
+                            <label for="pilih-menu">Pilih Menu</label>
+                            <select id="pilih-menu">
+                                <option value="">Pilih Menu</option>
+                                <!-- Diisi oleh JavaScript dari tabel menu -->
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="jumlah-porsi">Jumlah</label>
+                            <input type="number" id="jumlah-porsi" min="1" placeholder="0">
+                        </div>
+                        <button type="button" class="btn-simpan-menu" onclick="tambahMenuSementara()">Simpan</button>
+                    </div>
+
+                    <!-- Tabel Menu Sementara -->
+                    <table class="menu-sementara-table">
+                        <thead>
+                            <tr>
+                                <th>Nama Menu</th>
+                                <th>Jumlah Porsi</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody-menu-sementara">
+                            <!-- Diisi oleh JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="form-buttons">
+                    <button type="button" class="btn-kembali" onclick="tutupPopup()">Kembali</button>
+                    <button type="submit" class="btn-simpan">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/penjualan-pemilik.js"></script>
+</body>
+</html>

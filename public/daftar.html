@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar Pelanggan - Rumah Makan Apel</title>
+    <link rel="stylesheet" href="css/daftar.css">
+</head>
+<body>
+    <div class="daftar-wrapper">
+        
+        <!-- SISI KIRI: FORM DAFTAR -->
+        <div class="daftar-box">
+            <div class="daftar-header">
+                <h1>Daftar</h1>
+            </div>
+
+            <form id="form-daftar" action="/daftar-pelanggan" method="POST">
+                <div class="form-group">
+                    <label for="nama">Nama</label>
+                    <input type="text" id="nama" name="nama" placeholder="Masukkan nama lengkap...." required>
+                </div>
+
+                <div class="form-group">
+                    <label for="alamat">Alamat</label>
+                    <input type="text" id="alamat" name="alamat" placeholder="Masukkan alamat..." required>
+                </div>
+
+                <div class="form-group">
+                    <label for="no_hp">Nomor HP</label>
+                    <input type="text" id="no_hp" name="no_hp" placeholder="Masukkan nomor hp...." required>
+                </div>
+
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" placeholder="Masukkan username" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Masukkan setidaknya 8 karakter..." required minlength="8">
+                </div>
+
+                <div class="form-group">
+                    <label for="konfirmasi_password">Konfirmasi Password</label>
+                    <input type="password" id="konfirmasi_password" name="konfirmasi_password" placeholder="Masukkan ulang password" required minlength="8">
+                </div>
+
+                <button type="submit" class="btn-daftar">Daftar</button>
+            </form>
+        </div>
+
+        <!-- SISI KANAN: BANNER -->
+        <div class="daftar-banner">
+            <div class="banner-header">
+            </div>
+            <div class="banner-content">
+                <h1>Selamat Datang</h1>
+                <p>di Aplikasi Pemesanan Rumah Makan Apel Berbasis Web.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- POPUP SUKSES -->
+    <div id="popup-sukses" class="popup-overlay" style="display: none;">
+        <div class="popup-box">
+            <div class="popup-icon">
+                <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2">
+                    <path d="M9 11l3 3L22 4"></path>
+                    <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"></path>
+                </svg>
+            </div>
+            <h2>Akun anda sudah terdaftar</h2>
+            <p>Kembali ke Login untuk Login Ulang</p>
+            <a href="login.html" class="btn-kembali">Kembali ke Login</a>
+        </div>
+    </div>
+
+    <script src="js/daftar.js"></script>
+</body>
+</html>
